@@ -1,29 +1,19 @@
-import com.sun.xml.internal.ws.util.StringUtils;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static com.sun.glass.ui.Cursor.setVisible;
-
-public class Main extends Frame implements ActionListener {
+public class Main extends JFrame implements ActionListener {
     private static String processName;
     private static String userPC;
-
     public static void main(String[] args) throws Exception {
         Main main = new Main();
-
         main.TextFieldExample();
     }
-
-    TextField tf1, tf2, tf3, tf4, tf5, tf6;
-    Button b1, b2;
+    JTextField tf1, tf2, tf3, tf4, tf5, tf6;
+    JLabel q1,q2,q3;
+    JButton b1, b2;
     public String s2;
     private static final String TASKLIST = "pslist ";
     private static final String KILL = "pskill ";
@@ -53,31 +43,40 @@ public class Main extends Frame implements ActionListener {
     }
 
     public void TextFieldExample() throws Exception {
-        
-        tf1 = new TextField();
+        tf1 = new JTextField();
         tf1.setBounds(50, 50, 150, 20);
-        tf3 = new TextField();
-        tf3.setBounds(50, 100, 150, 20);
-        tf3.setEditable(false);
-        tf2 = new TextField();
+
+        tf2 = new JTextField();
         tf2.setBounds(50, 150, 150, 20);
         tf2.setEditable(false);
-        tf4 = new TextField();
+
+        tf3 = new JTextField();
+        tf3.setBounds(50, 100, 150, 20);
+        tf3.setEditable(false);
+
+        tf4 = new JTextField();
         tf4.setBounds(250, 50, 150, 20);
-        tf5 = new TextField();
+        tf5 = new JTextField();
         tf5.setBounds(250, 100, 150, 20);
 
-        tf6 = new TextField();
+        tf6 = new JTextField();
         tf6.setBounds(250, 150, 150, 20);
         tf6.setEditable(false);
 
-        b1 = new Button("Удалить");
-        b1.setBounds(50, 200, 50, 50);
+        b1 = new JButton("Удалить");
+        b1.setBounds(50, 200, 100, 50);
         b1.addActionListener(this);
 
-        b2 = new Button("Выкл");
-        b2.setBounds(250, 200, 50, 50);
+        b2 = new JButton("Остановить процесс");
+        b2.setBounds(250, 200, 180, 50);
         b2.addActionListener(this);
+
+        q1= new JLabel("Путь к папке удаления");
+        q1.setBounds(50,30,150,20);
+        q2= new JLabel("Имя завершаемого процесса");
+        q2.setBounds(250,30,180,20);
+        q3= new JLabel("Имя компьютера");
+        q3.setBounds(250,80,150,20);
         add(tf1);
         add(b1);
         add(tf3);
@@ -86,6 +85,9 @@ public class Main extends Frame implements ActionListener {
         add(tf5);
         add(tf6);
         add(b2);
+        add(q1);
+        add(q2);
+        add(q3);
 
         setSize(500, 400);
         setLayout(null);
