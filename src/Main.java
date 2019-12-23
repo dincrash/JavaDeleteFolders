@@ -11,9 +11,9 @@ public class Main extends JFrame implements ActionListener {
         Main main = new Main();
         main.TextFieldExample();
     }
-    JTextField tf1, tf2, tf3, tf4, tf5, tf6;
+    JTextField tf1, tf2, tf3, tf4, tf5, tf6,tf7;
     JLabel q1,q2,q3;
-    JButton b1, b2;
+    JButton b1, b2,b3;
     public String s2;
     private static final String TASKLIST = "pslist ";
     private static final String KILL = "pskill ";
@@ -63,13 +63,21 @@ public class Main extends JFrame implements ActionListener {
         tf6.setBounds(250, 150, 150, 20);
         tf6.setEditable(false);
 
+        tf7 = new JTextField();
+        tf7.setBounds(50, 350, 400, 200);
+        tf7.setEditable(false);
+
         b1 = new JButton("Удалить");
         b1.setBounds(50, 200, 100, 50);
         b1.addActionListener(this);
 
-        b2 = new JButton("Остановить процесс");
-        b2.setBounds(250, 200, 180, 50);
+        b2 = new JButton("taskkill");
+        b2.setBounds(250, 275, 180, 50);
         b2.addActionListener(this);
+
+        b3 = new JButton("tasklist");
+        b3.setBounds(50, 275, 180, 50);
+        b3.addActionListener(this);
 
         q1= new JLabel("Путь к папке удаления");
         q1.setBounds(50,30,150,20);
@@ -84,12 +92,14 @@ public class Main extends JFrame implements ActionListener {
         add(tf4);
         add(tf5);
         add(tf6);
+        add(tf7);
         add(b2);
         add(q1);
         add(q2);
         add(q3);
+        add(b3);
 
-        setSize(500, 400);
+        setSize(500, 800);
         setLayout(null);
         setVisible(true);
 
@@ -149,6 +159,28 @@ public class Main extends JFrame implements ActionListener {
                     killProcess(processName, userPC);
                 }
             } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+
+        }
+
+        if (e.getSource() == b3) {
+            //nameService
+            String ss1 = tf7.getText();
+
+            userPC = "\\" + "\\" + ss1;
+
+            try {
+                Process p = Runtime.getRuntime().exec(TASKLIST + userPC);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        p.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+
+                    System.out.println(line);
+                }
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
 
