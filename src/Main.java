@@ -43,22 +43,24 @@ public class Main extends JFrame implements ActionListener {
     }
 
     public void TextFieldExample() throws Exception {
+        //путь к папке
         tf1 = new JTextField();
         tf1.setBounds(50, 50, 150, 20);
-
+//выполненое действие
         tf2 = new JTextField();
         tf2.setBounds(50, 150, 150, 20);
         tf2.setEditable(false);
-
+//путь к папке
         tf3 = new JTextField();
         tf3.setBounds(50, 100, 150, 20);
         tf3.setEditable(false);
-
+//имя заверш процесса
         tf4 = new JTextField();
         tf4.setBounds(250, 50, 150, 20);
+        //имя пк
         tf5 = new JTextField();
         tf5.setBounds(250, 100, 150, 20);
-
+//
         tf6 = new JTextField();
         tf6.setBounds(250, 150, 150, 20);
         tf6.setEditable(false);
@@ -178,6 +180,7 @@ public class Main extends JFrame implements ActionListener {
                 String line;
                 while ((line = reader.readLine()) != null) {
 
+                    tf7.setText(line);
                     System.out.println(line);
                 }
             } catch (IOException ex) {
