@@ -1,23 +1,32 @@
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class Main extends JFrame implements ActionListener {
     private static String processName;
     private static String userPC;
-    public static void main(String[] args) throws Exception {
-        Main main = new Main();
-        main.TextFieldExample();
-    }
     JTextField tf1, tf2, tf3, tf4, tf5, tf6;
     JTextArea tf7;
-    JLabel q1,q2,q3;
-    JButton b1, b2,b3;
+    JLabel q1, q2, q3;
+    JButton b1, b2, b3;
     public String s2;
     private static final String TASKLIST = "pslist ";
     private static final String KILL = "pskill ";
+    private static final String fileName = "C:\\tmp\\2.csv";
+
+    public static void main(String[] args) throws IOException, CsvValidationException {
+        Main main = new Main();
+//        main.TextFieldExample();
+main.deleteFile(fileName);
+
+    }
 
     public static boolean isProcessRunning(String serviceName, String userPC) throws Exception {
 
@@ -81,15 +90,15 @@ public class Main extends JFrame implements ActionListener {
         b3.setBounds(50, 275, 180, 50);
         b3.addActionListener(this);
 
-        q1= new JLabel("Путь к папке удаления");
-        q1.setBounds(50,30,150,20);
-        q2= new JLabel("Имя завершаемого процесса");
-        q2.setBounds(250,30,180,20);
-        q3= new JLabel("Имя компьютера");
-        q3.setBounds(250,80,150,20);
+        q1 = new JLabel("Путь к папке удаления");
+        q1.setBounds(50, 30, 150, 20);
+        q2 = new JLabel("Имя завершаемого процесса");
+        q2.setBounds(250, 30, 180, 20);
+        q3 = new JLabel("Имя компьютера");
+        q3.setBounds(250, 80, 150, 20);
         JScrollPane sp = new JScrollPane(tf7);
         sp.setBounds(50, 350, 400, 200);
-add(sp);
+        add(sp);
         add(tf1);
         add(b1);
         add(tf3);
@@ -183,7 +192,7 @@ add(sp);
                 String line;
                 String lines = "";
                 while ((line = reader.readLine()) != null) {
-                    lines+="\n"+line;
+                    lines += "\n" + line;
                     System.out.println(line);
                 }
                 tf7.setText(lines);
@@ -208,5 +217,17 @@ add(sp);
             }
         }
         return (directory.delete());
+    }
+
+    public static void deleteFile(String fileName) throws IOException, CsvValidationException {
+        FileInputStream fis = new FileInputStream(fileName);
+        InputStreamReader isr = new InputStreamReader(fis, "ISO-8859-1");
+
+        CSVReader reader = new CSVReader(isr);
+        String [] nextLine;
+        while ((nextLine = reader.readNext()) != null) {
+            // nextLine[] is an array of values from the line
+            System.out.println(nextLine[0]);
+        }
     }
 }
