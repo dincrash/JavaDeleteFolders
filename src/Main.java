@@ -11,7 +11,8 @@ public class Main extends JFrame implements ActionListener {
         Main main = new Main();
         main.TextFieldExample();
     }
-    JTextField tf1, tf2, tf3, tf4, tf5, tf6,tf7;
+    JTextField tf1, tf2, tf3, tf4, tf5, tf6;
+    JTextArea tf7;
     JLabel q1,q2,q3;
     JButton b1, b2,b3;
     public String s2;
@@ -65,8 +66,7 @@ public class Main extends JFrame implements ActionListener {
         tf6.setBounds(250, 150, 150, 20);
         tf6.setEditable(false);
 
-        tf7 = new JTextField();
-        tf7.setBounds(50, 350, 400, 200);
+        tf7 = new JTextArea();
         tf7.setEditable(false);
 
         b1 = new JButton("Удалить");
@@ -87,6 +87,9 @@ public class Main extends JFrame implements ActionListener {
         q2.setBounds(250,30,180,20);
         q3= new JLabel("Имя компьютера");
         q3.setBounds(250,80,150,20);
+        JScrollPane sp = new JScrollPane(tf7);
+        sp.setBounds(50, 350, 400, 200);
+add(sp);
         add(tf1);
         add(b1);
         add(tf3);
@@ -94,7 +97,7 @@ public class Main extends JFrame implements ActionListener {
         add(tf4);
         add(tf5);
         add(tf6);
-        add(tf7);
+//        add(tf7);
         add(b2);
         add(q1);
         add(q2);
@@ -178,16 +181,16 @@ public class Main extends JFrame implements ActionListener {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(
                         p.getInputStream()));
                 String line;
+                String lines = "";
                 while ((line = reader.readLine()) != null) {
-
-                    tf7.setText(line);
+                    lines+="\n"+line;
                     System.out.println(line);
                 }
+                tf7.setText(lines);
+
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
-
         }
     }
 
