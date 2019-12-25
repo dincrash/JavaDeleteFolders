@@ -1,14 +1,12 @@
-
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
+package com.wind;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 public class Main extends JFrame implements ActionListener {
     private static String processName;
     private static String userPC;
@@ -17,15 +15,23 @@ public class Main extends JFrame implements ActionListener {
     JLabel q1, q2, q3;
     JButton b1, b2, b3;
     public String s2;
-    private static final String TASKLIST = "pslist ";
-    private static final String KILL = "pskill ";
+    private static final String TASKLIST = "TASKLIST /s ";
+    private static final String KILL = "TASKKILL /s ";
     private static final String fileName = "C:\\tmp\\2.csv";
 
-    public static void main(String[] args) throws IOException, CsvValidationException {
-        Main main = new Main();
-//        main.TextFieldExample();
-main.deleteFile(fileName);
+    public static void main(String[] args) throws Throwable {
 
+//main.deleteFile(fileName);
+        try {
+            Main main = new Main();
+            main.TextFieldExample();
+            System.out.println("work");
+            // body of main method goes here, including any other error handling
+        } catch (Throwable t) {
+            JOptionPane.showMessageDialog(
+                    null, t.getClass().getSimpleName() + ": " + t.getMessage());
+            throw t; // don't suppress Throwable
+        }
     }
 
     public static boolean isProcessRunning(String serviceName, String userPC) throws Exception {
@@ -48,7 +54,8 @@ main.deleteFile(fileName);
 
     public static void killProcess(String serviceName, String userPC) throws Exception {
 
-        Runtime.getRuntime().exec(KILL + userPC + " " + serviceName);
+//        Runtime.getRuntime().exec(KILL + userPC + "/IM " + serviceName);
+        Runtime.getRuntime().exec("taskkill /s "+userPC +" /IM "+ serviceName);
 
     }
 
@@ -158,6 +165,8 @@ main.deleteFile(fileName);
             }
 
         }
+
+        //taskkill
         if (e.getSource() == b2) {
             //nameService
             String ss1 = tf4.getText();
@@ -170,6 +179,7 @@ main.deleteFile(fileName);
             userPC = "\\" + "\\" + ss2;
             try {
                 if (isProcessRunning(processName, userPC)) {
+//                    System.out.println(userPC);
                     killProcess(processName, userPC);
                 }
             } catch (Exception ex) {
@@ -178,10 +188,10 @@ main.deleteFile(fileName);
 
 
         }
-
+//tasklist
         if (e.getSource() == b3) {
             //nameService
-            String ss1 = tf7.getText();
+            String ss1 = tf5.getText();
 
             userPC = "\\" + "\\" + ss1;
 
@@ -219,15 +229,15 @@ main.deleteFile(fileName);
         return (directory.delete());
     }
 
-    public static void deleteFile(String fileName) throws IOException, CsvValidationException {
-        FileInputStream fis = new FileInputStream(fileName);
-        InputStreamReader isr = new InputStreamReader(fis, "ISO-8859-1");
-
-        CSVReader reader = new CSVReader(isr);
-        String [] nextLine;
-        while ((nextLine = reader.readNext()) != null) {
-            // nextLine[] is an array of values from the line
-            System.out.println(nextLine[0]);
-        }
-    }
+//    public static void deleteFile(String fileName) throws IOException, CsvValidationException {
+//        FileInputStream fis = new FileInputStream(fileName);
+//        InputStreamReader isr = new InputStreamReader(fis, "utf-8");
+//
+//        CSVReader reader = new CSVReader(isr);
+//        String [] nextLine;
+//        while ((nextLine = reader.readNext()) != null) {
+//            // nextLine[] is an array of values from the line
+//            System.out.println(nextLine[0]);
+//        }
+//    }
 }
