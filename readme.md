@@ -2,7 +2,7 @@
 
 Created by dincrash(Vladislav Karpov)
 
-Desktop app for delete folders,files and taskkill, tasklist app windows
+Desktop app for delete folders,files and taskkill, tasklist app network domain users
 
 ### Tech
 
@@ -15,3 +15,8 @@ java i/o
 
 install maven dependencies
 
+###description
+.jar need open as administrator for taskkill network computer app  and 
+delete folders
+
+<img src="1.png" width="400">
