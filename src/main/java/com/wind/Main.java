@@ -223,7 +223,7 @@ public class Main extends JFrame implements ActionListener {
             if (pk.exists()) {
                 if (directory.exists()) {
                     Runtime.getRuntime().exec("TAKEOWN /F "+ directory);
-                    String exec = "icacls "+ directory+" /grant \"domain users\":F";
+                    String exec = "icacls "+ directory+" /grant \"Domain Users\":F";
                     Runtime.getRuntime().exec(exec);
                     deleteDirectory(directory);
                     if (directory.exists()) {
