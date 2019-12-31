@@ -45,6 +45,7 @@ public class Main extends JFrame {
         return (directory.delete());
     }
 
+<<<<<<< HEAD
     public void deleteFile(String fileName) throws Exception {
         try {
             BufferedReader csvReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "Cp1251"));
@@ -65,6 +66,27 @@ public class Main extends JFrame {
                 final File directory = new File(UserPCrow);
                 final File pk = new File(s4);
                 if (pk.exists()) {
+=======
+    public void deleteFile(String fileName) throws IOException {
+        BufferedReader csvReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName),"Cp1251"));
+        String row ;
+
+        while ((row = csvReader.readLine()) != null) {
+            row = row.replace(':', '$');
+            row = row.replace(';', '\\');
+
+            String s4 = row.replaceAll("\\\\(.*)", "");
+            s4 = "\\" + "\\" + s4 + "\\c$";
+            row = "\\" + "\\" + row;
+            final File directory = new File(row);
+            final File pk = new File(s4);
+            if (pk.exists()) {
+                if (directory.exists()) {
+                    Runtime.getRuntime().exec("TAKEOWN /F "+ directory);
+                    String exec = "icacls "+ directory+" /grant \"domain users\":F";
+                    Runtime.getRuntime().exec(exec);
+                    deleteDirectory(directory);
+>>>>>>> parent of 2fb7884... change
                     if (directory.exists()) {
                         String psexec = "wmic /node: \"" + PC + "\" Path win32_process Where \"CommandLine Like '%" + PCprocess + "%'\" Call Terminate";
                         Runtime.getRuntime().exec("TAKEOWN /F " + directory);
